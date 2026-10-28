@@ -1,0 +1,24 @@
+<div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+  <div class="card p-5">
+    <p class="text-xs font-semibold uppercase text-ink/50">Products</p>
+    <p class="mt-1 font-display text-2xl font-bold text-sahyadri">{{ productCount() ?? '—' }}</p>
+  </div>
+  <div class="card p-5">
+    <p class="text-xs font-semibold uppercase text-ink/50">Categories</p>
+    <p class="mt-1 font-display text-2xl font-bold text-sahyadri">{{ categoryCount() ?? '—' }}</p>
+  </div>
+  <div class="card p-5">
+    <p class="text-xs font-semibold uppercase text-ink/50">Total Orders</p>
+    <p class="mt-1 font-display text-2xl font-bold text-sahyadri">{{ orderCount() ?? '—' }}</p>
+  </div>
+  <div class="card p-5">
+    <p class="text-xs font-semibold uppercase text-ink/50">Pending Orders</p>
+    <p class="mt-1 font-display text-2xl font-bold text-laterite">{{ pendingOrders() ?? '—' }}</p>
+  </div>
+</div>
+
+<div class="mt-8 flex flex-wrap gap-4">
+  <a routerLink="/admin/products" class="btn-primary">Manage Products</a>
+  <a routerLink="/admin/categories" class="btn-secondary">Manage Categories</a>
+  <a routerLink="/admin/orders" class="btn-secondary">Manage Orders</a>
+</div>

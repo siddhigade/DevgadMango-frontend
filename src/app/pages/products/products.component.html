@@ -1,0 +1,53 @@
+<div class="mx-auto max-w-7xl px-4 py-10">
+  <h1 class="font-display text-3xl font-semibold text-sahyadri">Our Products</h1>
+  <p class="mt-1 text-ink/70">Authentic products and handcrafted flavours from the heart of Kokan.</p>
+
+  <div class="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-wrap gap-2">
+      <button
+        (click)="selectCategory('')"
+        class="rounded-full px-4 py-1.5 text-sm font-semibold transition"
+        [class.bg-sahyadri]="!categoryId()"
+        [class.text-sand]="!categoryId()"
+        [class.bg-sandDeep]="categoryId()"
+        [class.text-sahyadri]="categoryId()"
+      >
+        All
+      </button>
+      @for (c of categories(); track c.id) {
+        <button
+          (click)="selectCategory(c.id)"
+          class="rounded-full px-4 py-1.5 text-sm font-semibold transition"
+          [class.bg-sahyadri]="categoryId() === c.id.toString()"
+          [class.text-sand]="categoryId() === c.id.toString()"
+          [class.bg-sandDeep]="categoryId() !== c.id.toString()"
+          [class.text-sahyadri]="categoryId() !== c.id.toString()"
+        >
+          {{ c.name }}
+        </button>
+      }
+    </div>
+
+    <input
+      type="search"
+      placeholder="Search products…"
+      [ngModel]="keyword()"
+      (ngModelChange)="onKeywordChange($event)"
+      class="input md:w-64"
+    />
+  </div>
+
+  <div class="mt-8">
+    @if (loading()) {
+      <p class="text-ink/60">Loading products…</p>
+    } @else if (products().length === 0) {
+      <p class="text-ink/60">No products found.</p>
+    } @else {
+      <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
+        @for (p of products(); track p.id) {
+          <kd-product-card [product]="p" />
+        }
+      </div>
+    }
+  </div>
+</div>

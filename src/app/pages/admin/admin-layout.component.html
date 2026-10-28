@@ -1,0 +1,22 @@
+<div class="mx-auto max-w-6xl px-4 py-8">
+  <h1 class="font-display text-2xl font-semibold text-sahyadri">Admin Dashboard</h1>
+
+  <div class="mt-6 grid gap-6 md:grid-cols-[180px_1fr]">
+    <nav class="flex gap-2 overflow-x-auto md:flex-col md:overflow-visible">
+      @for (item of navItems; track item.to) {
+        <a
+          [routerLink]="item.to"
+          routerLinkActive="bg-sahyadri text-sand"
+          [routerLinkActiveOptions]="{ exact: item.exact }"
+          class="whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-sahyadri transition hover:bg-sahyadri/10 md:rounded-lg"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <div>
+      <router-outlet />
+    </div>
+  </div>
+</div>

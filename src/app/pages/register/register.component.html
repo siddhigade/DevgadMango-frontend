@@ -1,0 +1,38 @@
+<div class="mx-auto flex max-w-md flex-col px-4 py-16">
+  <h1 class="font-display text-3xl font-semibold text-sahyadri">Create an account</h1>
+  <p class="mt-1 text-ink/70">Join us for authentic Kokan flavours, delivered fresh.</p>
+
+  <form (ngSubmit)="submit()" class="mt-6 space-y-4 card p-6">
+    <input required name="name" placeholder="Full name" [(ngModel)]="form.name" class="input" />
+    <input required type="email" name="email" placeholder="Email" [(ngModel)]="form.email" class="input" />
+    <input
+      required
+      name="phone"
+      placeholder="Phone number"
+      pattern="^[6-9]\d{9}$"
+      title="10-digit Indian mobile number"
+      [(ngModel)]="form.phone"
+      class="input"
+    />
+    <input
+      required
+      type="password"
+      name="password"
+      placeholder="Password (min 6 characters)"
+      minlength="6"
+      [(ngModel)]="form.password"
+      class="input"
+    />
+    @if (error()) {
+      <p class="text-sm font-semibold text-laterite">{{ error() }}</p>
+    }
+    <button type="submit" [disabled]="loading()" class="btn-primary w-full">
+      {{ loading() ? 'Creating account…' : 'Create account' }}
+    </button>
+  </form>
+
+  <p class="mt-4 text-center text-sm text-ink/70">
+    Already have an account?
+    <a routerLink="/login" class="font-semibold text-laterite hover:underline">Log in</a>
+  </p>
+</div>

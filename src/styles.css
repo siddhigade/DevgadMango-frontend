@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-ink font-body antialiased m-0;
+}
+
+h1 {
+  @apply font-display text-4xl font-bold leading-tight tracking-tight md:text-6xl;
+}
+
+h2 {
+  @apply font-display text-2xl font-semibold leading-snug tracking-tight md:text-4xl;
+}
+
+h3 {
+  @apply font-display text-xl font-semibold leading-snug;
+}
+
+h4 {
+  @apply font-display text-lg font-semibold;
+}
+
+p {
+  @apply leading-relaxed;
+}
+
+::selection {
+  @apply bg-brand/20 text-brandDark;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3 font-body font-semibold text-white transition hover:bg-brandDark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand px-6 py-3 font-body font-semibold text-brand transition hover:bg-brand hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+}
+
+.input {
+  @apply w-full rounded-lg border border-sandDeep bg-white px-4 py-2.5 text-ink placeholder:text-ink/40 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20;
+}
+
+.card {
+  @apply rounded-2xl border border-sandDeep bg-white shadow-sm;
+}
+
+.coastline-divider {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #F5821F 0%, #D4A017 100%);
+}
+
+.font-devanagari {
+  font-family: 'Tiro Devanagari Marathi', serif;
+}
+
+.section-eyebrow {
+  @apply font-body text-sm font-semibold uppercase tracking-widest text-brand/70;
+}
+
+.divider-dot {
+  @apply mx-auto h-1.5 w-1.5 rounded-full bg-brand;
+}

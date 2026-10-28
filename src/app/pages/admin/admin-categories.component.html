@@ -1,0 +1,50 @@
+<div class="grid gap-6 lg:grid-cols-[1fr_320px]">
+  <div>
+    <h2 class="font-display text-xl font-semibold text-sahyadri">Categories</h2>
+
+    @if (loading()) {
+      <p class="mt-4 text-ink/60">Loading categories…</p>
+    } @else if (categories().length === 0) {
+      <p class="mt-4 text-ink/60">No categories yet — create one on the right.</p>
+    } @else {
+      <div class="mt-4 space-y-3">
+        @for (c of categories(); track c.id) {
+          <div class="card flex items-center gap-4 p-4">
+            <div class="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-sandDeep">
+              @if (c.imageUrl) {
+                <img [src]="c.imageUrl" [alt]="c.name" class="h-full w-full object-cover" />
+              }
+            </div>
+            <div class="flex-1">
+              <p class="font-display font-semibold text-sahyadri">{{ c.name }}</p>
+              @if (c.description) {
+                <p class="text-xs text-ink/50">{{ c.description }}</p>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="card h-fit p-5">
+    <h3 class="mb-4 font-display text-lg font-semibold text-sahyadri">New category</h3>
+    <form (ngSubmit)="save()" class="space-y-3">
+      <input required name="name" placeholder="Category name" [(ngModel)]="form.name" class="input" />
+      <textarea name="description" placeholder="Description (optional)" rows="2" [(ngModel)]="form.description" class="input"></textarea>
+      <input name="imageUrl" placeholder="Image URL (optional)" [(ngModel)]="form.imageUrl" class="input" />
+
+      @if (error()) {
+        <p class="text-sm font-semibold text-laterite">{{ error() }}</p>
+      }
+
+      <button type="submit" [disabled]="saving()" class="btn-primary w-full">
+        {{ saving() ? 'Saving…' : 'Create category' }}
+      </button>
+    </form>
+    <p class="mt-3 text-xs text-ink/50">
+      The backend currently only supports creating categories — editing and deleting would need
+      new endpoints added to <code>CategoryController</code>.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="mx-auto max-w-3xl px-4 py-10">
+  <h1 class="font-display text-3xl font-semibold text-sahyadri">My Orders</h1>
+
+  @if (loading()) {
+    <p class="mt-6 text-ink/60">Loading orders…</p>
+  } @else if (orders().length === 0) {
+    <div class="mt-8 card p-10 text-center">
+      <p class="text-ink/70">You haven't placed any orders yet.</p>
+      <a routerLink="/products" class="btn-primary mt-4 inline-flex">Start shopping</a>
+    </div>
+  } @else {
+    <div class="mt-6 space-y-4">
+      @for (order of orders(); track order.id) {
+        <div class="card p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <p class="font-display font-semibold text-sahyadri">Order #{{ order.id }}</p>
+              <p class="text-xs text-ink/50">{{ formatDate(order.createdAt) }}</p>
+            </div>
+            <span class="rounded-full px-3 py-1 text-xs font-semibold" [class]="statusClasses[order.status] || 'bg-sandDeep text-ink/70'">
+              {{ order.status }}
+            </span>
+          </div>
+
+          <ul class="mt-3 divide-y divide-sandDeep text-sm">
+            @for (item of order.items; track item.id) {
+              <li class="flex justify-between py-2">
+                <span>
+                  {{ item.product?.name }}{{ item.variantLabel ? ' (' + item.variantLabel + ')' : '' }} × {{ item.quantity }}
+                </span>
+                <span class="font-semibold">₹{{ itemTotal(item).toFixed(2) }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="mt-3 flex items-center justify-between border-t border-sandDeep pt-3">
+            <span class="text-sm text-ink/60">
+              Payment: <span class="font-semibold">{{ order.paymentStatus }}</span>
+            </span>
+            <span class="font-display text-lg font-bold text-laterite">₹{{ order.totalAmount.toFixed(2) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

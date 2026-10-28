@@ -1,0 +1,75 @@
+<section class="relative h-[480px] w-full overflow-hidden md:h-[560px]">
+  @for (slide of slides; track slide.title; let i = $index) {
+    @if (active() === i) {
+      <div class="absolute inset-0">
+        <img [src]="slide.imageUrl" [alt]="slide.title" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+
+        <div class="absolute inset-0 flex items-center">
+          <div class="mx-auto w-full max-w-6xl px-4">
+            <div class="max-w-xl">
+              <p class="mb-4 inline-block rounded-full bg-brand px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-white">
+                {{ slide.eyebrow }}
+              </p>
+              <h1 class="font-display text-5xl font-bold leading-[1.05] text-white drop-shadow-lg md:text-7xl">
+                {{ slide.title }}
+              </h1>
+              <p class="mt-5 text-lg text-white/90 drop-shadow md:text-xl">{{ slide.subtitle }}</p>
+              <div class="mt-8 flex flex-wrap gap-4">
+                <a [routerLink]="slide.ctaLink" class="btn-primary px-8 py-4 text-lg">
+                  {{ slide.ctaLabel }}
+                </a>
+                <a
+                  href="https://wa.me/918484884271"
+                  target="_blank"
+                  rel="noreferrer"
+                  class="inline-flex items-center justify-center rounded-full border-2 border-white px-8 py-4 text-lg font-semibold text-white transition hover:bg-white hover:text-ink"
+                >
+                  Order Through WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        @if (slide.badge) {
+          <div class="absolute right-6 top-1/2 -translate-y-1/2 rounded-2xl bg-maroon px-6 py-5 text-center text-white shadow-2xl md:right-16">
+            <p class="text-sm line-through opacity-60">{{ slide.badge.originalPrice }}</p>
+            <p class="mb-1 rounded bg-gold px-2 py-0.5 text-xs font-bold uppercase text-ink">Special Offer</p>
+            <p class="font-display text-4xl font-bold">{{ slide.badge.salePrice }}</p>
+            <p class="text-xs font-semibold text-gold">{{ slide.badge.savings }}</p>
+          </div>
+        }
+      </div>
+    }
+  }
+
+  <button
+    (click)="prev()"
+    class="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-3 text-xl shadow-lg transition hover:bg-brand hover:text-white md:left-8"
+    aria-label="Previous slide"
+  >
+    ‹
+  </button>
+  <button
+    (click)="next()"
+    class="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-3 text-xl shadow-lg transition hover:bg-brand hover:text-white md:right-8"
+    aria-label="Next slide"
+  >
+    ›
+  </button>
+
+  <div class="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+    @for (slide of slides; track slide.title; let i = $index) {
+      <button
+        (click)="goTo(i)"
+        class="h-2.5 rounded-full transition-all"
+        [class.w-8]="active() === i"
+        [class.w-2.5]="active() !== i"
+        [class.bg-brand]="active() === i"
+        [class.bg-white]="active() !== i"
+        [attr.aria-label]="'Go to slide ' + (i + 1)"
+      ></button>
+    }
+  </div>
+</section>

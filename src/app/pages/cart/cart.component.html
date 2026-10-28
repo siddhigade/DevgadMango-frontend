@@ -1,0 +1,46 @@
+<div class="mx-auto max-w-4xl px-4 py-10">
+  <h1 class="font-display text-3xl font-semibold text-sahyadri">Your Cart</h1>
+
+  @if (cart.loading()) {
+    <p class="mt-6 text-ink/60">Loading cart…</p>
+  } @else if (cart.items().length === 0) {
+    <div class="mt-8 card p-10 text-center">
+      <p class="text-ink/70">Your cart is empty.</p>
+      <a routerLink="/products" class="btn-primary mt-4 inline-flex">Browse products</a>
+    </div>
+  } @else {
+    <div class="mt-6 space-y-4">
+      @for (item of cart.items(); track item.id) {
+        <div class="card flex items-center gap-4 p-4">
+          <div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-sandDeep">
+            @if (item.product?.imageUrl) {
+              <img [src]="item.product.imageUrl" [alt]="item.product.name" class="h-full w-full object-cover" />
+            }
+          </div>
+          <div class="flex-1">
+            <p class="font-display font-semibold text-sahyadri">{{ item.product?.name }}</p>
+            @if (item.variant) {
+              <p class="text-sm text-ink/60">{{ item.variant.label }}</p>
+            }
+            <p class="text-sm font-semibold text-laterite">₹{{ priceFor(item).toFixed(2) }}</p>
+          </div>
+          <div class="flex items-center rounded-full border-2 border-sandDeep">
+            <button (click)="decrement(item.id, item.quantity)" class="px-3 py-1 text-lg text-sahyadri" aria-label="Decrease quantity">−</button>
+            <span class="w-8 text-center font-semibold">{{ item.quantity }}</span>
+            <button (click)="increment(item.id, item.quantity)" class="px-3 py-1 text-lg text-sahyadri" aria-label="Increase quantity">+</button>
+          </div>
+          <button (click)="remove(item.id)" class="text-sm font-semibold text-laterite hover:underline">
+            Remove
+          </button>
+        </div>
+      }
+    </div>
+
+    <div class="mt-8 flex items-center justify-between card p-5">
+      <span class="font-display text-lg font-semibold text-sahyadri">Total</span>
+      <span class="font-display text-2xl font-bold text-laterite">₹{{ cart.total().toFixed(2) }}</span>
+    </div>
+
+    <button (click)="goToCheckout()" class="btn-primary mt-6 w-full">Proceed to Checkout</button>
+  }
+</div>

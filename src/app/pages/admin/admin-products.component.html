@@ -1,0 +1,107 @@
+<div class="grid gap-6 lg:grid-cols-[1fr_360px]">
+  <div>
+    <h2 class="font-display text-xl font-semibold text-sahyadri">Products</h2>
+
+    @if (loading()) {
+      <p class="mt-4 text-ink/60">Loading products…</p>
+    } @else if (products().length === 0) {
+      <p class="mt-4 text-ink/60">No products yet — create one on the right.</p>
+    } @else {
+      <div class="mt-4 space-y-3">
+        @for (p of products(); track p.id) {
+          <div class="card flex items-center gap-4 p-4">
+            <div class="h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg bg-sandDeep">
+              @if (p.imageUrl) {
+                <img [src]="p.imageUrl" [alt]="p.name" class="h-full w-full object-cover" />
+              }
+            </div>
+
+            <div class="flex-1">
+              <p class="font-display font-semibold text-sahyadri">{{ p.name }}</p>
+              <p class="text-xs text-ink/50">
+                {{ p.category?.name }} · Stock: {{ p.stock }}
+                @if (!p.active) { <span class="text-laterite">· Inactive</span> }
+              </p>
+            </div>
+
+            <span class="font-semibold text-laterite">₹{{ p.price.toFixed(2) }}</span>
+            <button (click)="startEdit(p)" class="text-sm font-semibold text-sea hover:underline">Edit</button>
+            @if (p.active) {
+              <button (click)="remove(p.id)" class="text-sm font-semibold text-laterite hover:underline">Deactivate</button>
+            } @else {
+              <button (click)="reactivate(p.id)" class="text-sm font-semibold text-sea hover:underline">Reactivate</button>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="card h-fit p-5">
+    <div class="mb-4 flex items-center justify-between">
+      <h3 class="font-display text-lg font-semibold text-sahyadri">
+        {{ editingId() ? 'Edit product' : 'New product' }}
+      </h3>
+      @if (editingId()) {
+        <button (click)="startCreate()" class="text-xs font-semibold text-laterite hover:underline">Cancel</button>
+      }
+    </div>
+
+    <form (ngSubmit)="save()" class="space-y-3">
+      <input required name="name" placeholder="Product name" [ngModel]="form().name"
+        (ngModelChange)="updateField('name', $event)" class="input" />
+
+      <textarea name="description" placeholder="Description" rows="2" [ngModel]="form().description"
+        (ngModelChange)="updateField('description', $event)" class="input"></textarea>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input required type="number" step="0.01" min="0" name="price" placeholder="Price" [ngModel]="form().price"
+          (ngModelChange)="updateField('price', +$event)" class="input" />
+        <input required type="number" min="0" name="stock" placeholder="Stock" [ngModel]="form().stock"
+          (ngModelChange)="updateField('stock', +$event)" class="input" />
+      </div>
+
+      <select required name="categoryId" [ngModel]="form().categoryId"
+        (ngModelChange)="updateField('categoryId', +$event)" class="input">
+        <option [value]="0" disabled>Select a category</option>
+        @for (c of categories(); track c.id) {
+          <option [value]="c.id">{{ c.name }}</option>
+        }
+      </select>
+
+      <input name="imageUrl" placeholder="Image URL" [ngModel]="form().imageUrl"
+        (ngModelChange)="updateField('imageUrl', $event)" class="input" />
+
+      <div>
+        <div class="mb-1 flex items-center justify-between">
+          <p class="text-sm font-semibold text-ink/70">Variants (optional)</p>
+          <button type="button" (click)="addVariantRow()" class="text-xs font-semibold text-sea hover:underline">
+            + Add variant
+          </button>
+        </div>
+        @for (v of form().variants; track $index) {
+          <div class="mb-2 grid grid-cols-[1fr_70px_70px_auto] gap-2">
+            <input placeholder="Label" [ngModel]="v.label" name="variantLabel{{ $index }}"
+              (ngModelChange)="updateVariantField($index, 'label', $event)"
+              class="input" />
+            <input type="number" step="0.01" placeholder="Price" [ngModel]="v.price" name="variantPrice{{ $index }}"
+              (ngModelChange)="updateVariantField($index, 'price', +$event)"
+              class="input" />
+            <input type="number" placeholder="Stock" [ngModel]="v.stock" name="variantStock{{ $index }}"
+              (ngModelChange)="updateVariantField($index, 'stock', +$event)"
+              class="input" />
+            <button type="button" (click)="removeVariantRow($index)" class="text-laterite">✕</button>
+          </div>
+        }
+      </div>
+
+      @if (error()) {
+        <p class="text-sm font-semibold text-laterite">{{ error() }}</p>
+      }
+
+      <button type="submit" [disabled]="saving()" class="btn-primary w-full">
+        {{ saving() ? 'Saving…' : editingId() ? 'Save changes' : 'Create product' }}
+      </button>
+    </form>
+  </div>
+</div>

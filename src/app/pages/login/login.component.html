@@ -1,0 +1,20 @@
+<div class="mx-auto flex max-w-md flex-col px-4 py-16">
+  <h1 class="font-display text-3xl font-semibold text-sahyadri">Welcome back</h1>
+  <p class="mt-1 text-ink/70">Log in to order your Kokan favourites.</p>
+
+  <form (ngSubmit)="submit()" class="mt-6 space-y-4 card p-6">
+    <input required type="email" name="email" placeholder="Email" [(ngModel)]="form.email" class="input" />
+    <input required type="password" name="password" placeholder="Password" [(ngModel)]="form.password" class="input" />
+    @if (error()) {
+      <p class="text-sm font-semibold text-laterite">{{ error() }}</p>
+    }
+    <button type="submit" [disabled]="loading()" class="btn-primary w-full">
+      {{ loading() ? 'Logging in…' : 'Log in' }}
+    </button>
+  </form>
+
+  <p class="mt-4 text-center text-sm text-ink/70">
+    New to Kokan Delights?
+    <a routerLink="/register" class="font-semibold text-laterite hover:underline">Create an account</a>
+  </p>
+</div>

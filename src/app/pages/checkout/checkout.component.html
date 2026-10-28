@@ -1,0 +1,45 @@
+@if (cart.items().length === 0) {
+  <div class="mx-auto max-w-2xl px-4 py-16 text-center">
+    <p class="text-ink/70">Your cart is empty — add something delicious first.</p>
+  </div>
+} @else {
+  <div class="mx-auto max-w-2xl px-4 py-10">
+    <h1 class="font-display text-3xl font-semibold text-sahyadri">Checkout</h1>
+    <p class="mt-1 text-ink/70">Enter your delivery address to continue to payment.</p>
+
+    <form (ngSubmit)="handlePay()" class="mt-6 space-y-4 card p-6">
+      <div class="grid gap-4 md:grid-cols-2">
+        <input required name="fullName" placeholder="Full name" [(ngModel)]="form.fullName" class="input" />
+        <input
+          required
+          name="phone"
+          placeholder="Phone number"
+          pattern="^[6-9]\d{9}$"
+          title="10-digit Indian mobile number"
+          [(ngModel)]="form.phone"
+          class="input"
+        />
+      </div>
+      <input required name="addressLine1" placeholder="Address line 1" [(ngModel)]="form.addressLine1" class="input" />
+      <input name="addressLine2" placeholder="Address line 2 (optional)" [(ngModel)]="form.addressLine2" class="input" />
+      <div class="grid gap-4 md:grid-cols-3">
+        <input required name="city" placeholder="City" [(ngModel)]="form.city" class="input" />
+        <input required name="state" placeholder="State" [(ngModel)]="form.state" class="input" />
+        <input required name="pincode" placeholder="Pincode" [(ngModel)]="form.pincode" class="input" />
+      </div>
+
+      <div class="flex items-center justify-between border-t border-sandDeep pt-4">
+        <span class="font-semibold text-ink/70">Order total</span>
+        <span class="font-display text-2xl font-bold text-laterite">₹{{ cart.total().toFixed(2) }}</span>
+      </div>
+
+      @if (error()) {
+        <p class="text-sm font-semibold text-laterite">{{ error() }}</p>
+      }
+
+      <button type="submit" [disabled]="placing()" class="btn-primary w-full">
+        {{ placing() ? 'Processing…' : 'Pay with Razorpay' }}
+      </button>
+    </form>
+  </div>
+}

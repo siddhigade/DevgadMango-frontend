@@ -1,0 +1,81 @@
+@if (loading()) {
+  <div class="mx-auto max-w-6xl px-4 py-16 text-ink/60">Loading…</div>
+} @else if (!product()) {
+  <div class="mx-auto max-w-6xl px-4 py-16 text-ink/60">Product not found.</div>
+} @else {
+  <div class="mx-auto max-w-6xl px-4 py-10">
+    <div class="grid gap-10 md:grid-cols-2">
+      <div class="aspect-square overflow-hidden rounded-2xl bg-sandDeep">
+        @if (product()!.imageUrl) {
+          <img [src]="product()!.imageUrl" [alt]="product()!.name" class="h-full w-full object-cover" />
+        } @else {
+          <div class="flex h-full w-full items-center justify-center font-display text-sahyadri/40">
+            Kokan Delights
+          </div>
+        }
+      </div>
+
+      <div>
+        <h1 class="font-display text-3xl font-semibold text-sahyadri">{{ product()!.name }}</h1>
+        @if (product()!.description) {
+          <p class="mt-3 leading-relaxed text-ink/70">{{ product()!.description }}</p>
+        }
+
+        <div class="mt-6 flex items-baseline gap-3">
+          <span class="font-display text-3xl font-bold text-laterite">₹{{ currentPrice().toFixed(2) }}</span>
+          @if (currentStock() > 0) {
+            <span class="text-sm font-semibold text-sea">In stock</span>
+          } @else {
+            <span class="text-sm font-semibold text-ink/40">Sold out</span>
+          }
+        </div>
+
+        @if (product()!.variants?.length) {
+          <div class="mt-6">
+            <p class="mb-2 text-sm font-semibold text-ink/70">Size / weight</p>
+            <div class="flex flex-wrap gap-2">
+              @for (v of product()!.variants; track v.id) {
+                <button
+                  (click)="selectVariant(v)"
+                  class="rounded-full border-2 px-4 py-1.5 text-sm font-semibold transition"
+                  [class.border-laterite]="variant()?.id === v.id"
+                  [class.bg-laterite]="variant()?.id === v.id"
+                  [class.text-sand]="variant()?.id === v.id"
+                  [class.border-sandDeep]="variant()?.id !== v.id"
+                  [class.text-ink]="variant()?.id !== v.id"
+                >
+                  {{ v.label }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="mt-6 flex items-center gap-3">
+          <label class="text-sm font-semibold text-ink/70">Qty</label>
+          <div class="flex items-center rounded-full border-2 border-sandDeep">
+            <button (click)="decrement()" class="px-3 py-1.5 text-lg text-sahyadri" aria-label="Decrease quantity">−</button>
+            <span class="w-8 text-center font-semibold">{{ qty() }}</span>
+            <button (click)="increment()" class="px-3 py-1.5 text-lg text-sahyadri" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <button (click)="addToCart()" [disabled]="currentStock() <= 0 || status() === 'adding'" class="btn-primary">
+            {{ status() === 'adding' ? 'Adding…' : 'Add to Cart' }}
+          </button>
+          <a href="https://wa.me/7972889731" target="_blank" rel="noreferrer" class="btn-secondary">
+            Order Through WhatsApp
+          </a>
+        </div>
+
+        @if (status() === 'added') {
+          <p class="mt-3 text-sm font-semibold text-sea">Added to your cart.</p>
+        }
+        @if (status() === 'error') {
+          <p class="mt-3 text-sm font-semibold text-laterite">Couldn't add to cart. Please try again.</p>
+        }
+      </div>
+    </div>
+  </div>
+}

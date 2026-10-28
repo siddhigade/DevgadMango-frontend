@@ -1,0 +1,94 @@
+<div>
+  <!-- Hero -->
+  <kd-hero-carousel />
+  
+<section class="mx-auto max-w-3xl px-4 py-20 text-center">
+  <h2 class="font-devanagari text-5xl font-bold tracking-wide text-brand sm:text-6xl md:text-7xl">
+  अपरांत
+</h2>
+  <div class="mx-auto mt-4 h-1 w-24 rounded-full bg-brand/60"></div>
+  <p class="mt-8 text-lg leading-relaxed text-ink/70 sm:text-xl">
+    <em>Aparaant</em>, an ancient Marathi and Sanskrit word, means "the land beyond" — a poetic
+    reference to Kokan's mesmerizing coastal expanse. At Kokan Delights we celebrate the soul of
+    Aparaant Bhumi: a treasure trove of traditions, culinary delights, and breathtaking
+    landscapes between the mountains and the sea.
+  </p>
+</section>
+
+<!-- Categories -->
+@if (categories().length > 0) {
+  <section class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="mb-6 font-display text-2xl font-semibold text-ink">Our Product Range</h2>
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (c of categories(); track c.id) {
+        <kd-category-tile [category]="c" />
+      }
+    </div>
+  </section>
+}
+
+<!-- Featured products -->
+<section class="mx-auto max-w-7xl px-4 py-10">
+  <div class="mb-6 flex items-center justify-between">
+    <h2 class="font-display text-2xl font-semibold text-ink">Popular Picks</h2>
+    <a routerLink="/products" class="text-sm font-semibold text-brand hover:underline">
+      View all →
+    </a>
+  </div>
+  @if (loading()) {
+    <p class="text-ink/60">Loading products…</p>
+  } @else if (products().length === 0) {
+    <p class="text-ink/60">
+      No products yet — add some from the admin panel and they'll show up here.
+    </p>
+  } @else {
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
+      @for (p of products(); track p.id) {
+        <kd-product-card [product]="p" />
+      }
+    </div>
+  }
+</section>
+<kd-mango-size-guide />
+<kd-alphonso-story />
+<!-- Why us -->
+<section class="bg-cream py-20">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="grid gap-12 text-center md:grid-cols-3">
+      <div>
+        <div class="mb-4 text-6xl">🛍️</div>
+        <h3 class="mb-3 font-display text-2xl font-semibold text-ink">Free Shipping</h3>
+        <p class="mx-auto max-w-xs text-base leading-relaxed text-ink/60">
+          Free shipping across Pune and PCMC. Nominal charges apply elsewhere in India.
+        </p>
+      </div>
+      <div>
+        <div class="mb-4 text-6xl">🚚</div>
+        <h3 class="mb-3 font-display text-2xl font-semibold text-ink">Home Delivery</h3>
+        <p class="mx-auto max-w-xs text-base leading-relaxed text-ink/60">
+          Hundreds of dozens of mangoes delivered — our finest delights, just a click away.
+        </p>
+      </div>
+      <div>
+        <div class="mb-4 text-6xl">🏅</div>
+        <h3 class="mb-3 font-display text-2xl font-semibold text-ink">Quality Assurance</h3>
+        <p class="mx-auto max-w-xs text-base leading-relaxed text-ink/60">
+          Committed to delivering authentic flavours with the highest quality standards, always.
+        </p>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-20 max-w-3xl text-center">
+      <p class="section-eyebrow mb-3">Our Promise</p>
+      <h2 class="font-display text-4xl font-bold text-brand md:text-5xl">Why Kokan Delights?</h2>
+      <div class="divider-dot mt-5"></div>
+      <p class="mt-8 text-lg leading-relaxed text-ink/70">
+        At Kokan Delights, we bring you the vibrant flavours and rich heritage of Kokan,
+        delivered straight to your doorstep. What makes us truly unique is our commitment to
+        quality — our Ratnagiri Mangoes are "chemical free ripened," ensuring they are fresh,
+        handpicked, packed and delivered with love. Purity and authentic taste are at the heart
+        of everything we do.
+      </p>
+    </div>
+  </div>
+</section></div>
