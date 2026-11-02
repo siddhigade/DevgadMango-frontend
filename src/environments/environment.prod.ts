@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://your-backend-domain.com/api',
+  apiBaseUrl: 'https://devgadmango-frontend-1.onrender.com/api',
   razorpayKeyId: 'rzp_live_XXXXXXXXXX',
 };

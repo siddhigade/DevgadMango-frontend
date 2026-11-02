@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/not-found/not-found.component.ts"],
+  "sourcesContent": ["import { Component } from '@angular/core';\nimport { RouterLink } from '@angular/router';\n\n@Component({\n  selector: 'kd-not-found',\n  standalone: true,\n  imports: [RouterLink],\n  template: `\n    <div class=\"mx-auto flex max-w-lg flex-col items-center px-4 py-24 text-center\">\n      <h1 class=\"font-display text-4xl font-bold text-sahyadri\">404</h1>\n      <p class=\"mt-2 text-ink/70\">This page has drifted off the coast.</p>\n      <a routerLink=\"/\" class=\"btn-primary mt-6\">Back to Home</a>\n    </div>\n  `,\n})\nexport class NotFoundComponent {}\n"],
+  "mappings": ";;;;;;;;;;;;;AAeM,IAAO,oBAAP,MAAO,mBAAiB;;qBAAjB,oBAAiB;EAAA;yEAAjB,oBAAiB,WAAA,CAAA,CAAA,cAAA,CAAA,GAAA,YAAA,MAAA,UAAA,CAAA,6BAAA,GAAA,OAAA,GAAA,MAAA,GAAA,QAAA,CAAA,CAAA,GAAA,WAAA,QAAA,YAAA,YAAA,gBAAA,QAAA,SAAA,aAAA,GAAA,CAAA,GAAA,gBAAA,YAAA,aAAA,eAAA,GAAA,CAAA,GAAA,QAAA,aAAA,GAAA,CAAA,cAAA,KAAA,GAAA,eAAA,MAAA,CAAA,GAAA,UAAA,SAAA,2BAAA,IAAA,KAAA;AAAA,QAAA,KAAA,GAAA;AAP1B,MAAA,yBAAA,GAAA,OAAA,CAAA,EAAgF,GAAA,MAAA,CAAA;AACpB,MAAA,iBAAA,GAAA,KAAA;AAAG,MAAA,uBAAA;AAC7D,MAAA,yBAAA,GAAA,KAAA,CAAA;AAA4B,MAAA,iBAAA,GAAA,sCAAA;AAAoC,MAAA,uBAAA;AAChE,MAAA,yBAAA,GAAA,KAAA,CAAA;AAA2C,MAAA,iBAAA,GAAA,cAAA;AAAY,MAAA,uBAAA,EAAI;;oBALrD,UAAU,GAAA,eAAA,EAAA,CAAA;;;6EAST,mBAAiB,EAAA,WAAA,qBAAA,UAAA,sDAAA,YAAA,GAAA,CAAA;AAAA,GAAA;",
+  "names": []
+}
